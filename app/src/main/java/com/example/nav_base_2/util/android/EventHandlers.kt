@@ -1,4 +1,4 @@
-package com.example.nav_base_2.util
+package com.example.nav_base_2.util.android
 
 import android.text.Editable
 import android.text.TextWatcher
