@@ -3,7 +3,7 @@ package com.example.shopeepee.controllers
 import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.example.shopeepee.R
-import com.example.shopeepee.adapters.ShoppingListItemAdapter
+import com.example.shopeepee.adapters.ShoppingListItemEditAdapter
 import com.example.shopeepee.util.android.Navigation
 import kotlinx.android.synthetic.main.fragment_new_shopping_list.*
 
@@ -20,7 +20,7 @@ object NewShoppingListController : FragmentController {
                     Navigation.navigate(R.id.mainContent)
                 }
             }
-            itemsRecycler.adapter = ShoppingListItemAdapter(mutableListOf(), true)
+            itemsRecycler.adapter = ShoppingListItemEditAdapter(mutableListOf(), true)
         }
     }
 

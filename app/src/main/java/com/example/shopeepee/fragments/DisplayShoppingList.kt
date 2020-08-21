@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.shopeepee.R
-import com.example.shopeepee.controllers.MainController
+import com.example.shopeepee.controllers.DisplayShoppingListController
+import com.example.shopeepee.controllers.NewShoppingListController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,13 +17,15 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainContent.newInstance] factory method to
+ * Use the [NewShoppingList.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainContent : Fragment() {
+class DisplayShoppingList : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    val args : DisplayShoppingListArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,17 +40,18 @@ class MainContent : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_content, container, false)
+        return inflater.inflate(R.layout.fragment_display_shopping_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainController.init(this)
+        DisplayShoppingListController.data(args.Items!!)
+        DisplayShoppingListController.init(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        MainController.restoreState()
+        DisplayShoppingListController.restoreState()
     }
 
     companion object {
@@ -57,12 +61,12 @@ class MainContent : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainContent.
+         * @return A new instance of fragment NewShoppingList.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainContent().apply {
+            NewShoppingList().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

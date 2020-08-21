@@ -7,18 +7,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/itemName"
-            android:layout_width="match_parent"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:hint="Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/itemNameEdit"
+                android:backgroundTint="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

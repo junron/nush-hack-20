@@ -9,7 +9,7 @@ import com.example.shopeepee.models.ShoppingItem
 import com.example.shopeepee.util.android.onTextChange
 import kotlinx.android.synthetic.main.shopping_item.view.*
 
-class ShoppingListItemAdapter(
+class ShoppingListItemEditAdapter(
     var items: MutableList<ShoppingItem>,
     private val editable: Boolean
 ) : BaseAdapter() {

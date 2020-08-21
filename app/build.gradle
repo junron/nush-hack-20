@@ -8,6 +8,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'com.google.gms.google-services'
 
+apply plugin: 'kotlinx-serialization'
+
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -33,7 +36,7 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.2.1"
+    def nav_version = "2.3.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -52,6 +55,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
 
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
     // Add the SDKs for any other Firebase products you want to use in your app
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
 }

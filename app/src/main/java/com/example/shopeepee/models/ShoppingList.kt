@@ -1,5 +1,8 @@
 package com.example.shopeepee.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ShoppingList(
     val id: String,
     val name: String,
@@ -8,11 +11,14 @@ data class ShoppingList(
     val confirmedItems: List<PotentialShoppingItem>
 )
 
+@Serializable
 data class ShoppingItem(
     val id: String,
-    val name: String
+    val name: String,
+    var acquired: Boolean = false
 )
 
+@Serializable
 data class PotentialShoppingItem(
     val id: String,
 //    Dollars
@@ -20,4 +26,5 @@ data class PotentialShoppingItem(
     val nutritionInfo: List<NutritionInfo>
 )
 
+@Serializable
 data class NutritionInfo(val idk: String)
