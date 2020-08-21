@@ -6,11 +6,6 @@
     app:startDestination="@id/mainContent">
     <action android:id="@+id/showDisplayShoppingList"
         app:destination="@id/displayShoppingList">
-        <argument
-            android:name="Items"
-            app:nullable="true"
-            app:argType="com.example.shopeepee.models.ShoppingList"
-            android:defaultValue="@null" />
     </action>
     <fragment
         android:id="@+id/mainContent"
