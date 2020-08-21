@@ -44,7 +44,7 @@ class DisplayShoppingList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DisplayShoppingListController.data(args.Items!!)
+        args.Items?.let { DisplayShoppingListController.data(it) }
         DisplayShoppingListController.init(this)
     }
 

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.shopeepee.R
 import com.example.shopeepee.fragments.MainContentDirections
 import com.example.shopeepee.models.ShoppingList
@@ -21,8 +22,7 @@ class ShoppingListAdapter(val fragment: Fragment, var data: List<ShoppingList>) 
             itemName.text = item.name
             itemsComplete.text = "${item.confirmedItems.size}/${item.items.size} items complete"
             setOnClickListener {
-                MainContentDirections.showDisplayShoppingList(item)
-                Navigation.navigate(R.id.displayShoppingList)
+                findNavController().navigate(MainContentDirections.showDisplayShoppingList(item))
             }
         }
         return view

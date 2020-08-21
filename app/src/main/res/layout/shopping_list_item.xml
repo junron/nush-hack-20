@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:layout_margin="0dp"
+    android:layout_margin="10dp"
     android:id="@+id/item_card"
     android:layout_width="fill_parent"
     android:layout_height="180dp"
-    card_view:cardCornerRadius="2dp"
+    card_view:cardCornerRadius="15dp"
     android:focusable="true">
 
     <LinearLayout
@@ -18,8 +18,11 @@
         android:orientation="vertical">
         
         <TextView
+            android:layout_marginTop="@dimen/text_margin"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/item_name"/>
 
         <TextView

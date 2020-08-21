@@ -2,8 +2,6 @@ package com.example.shopeepee.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-
-
 @Parcelize
 data class ShoppingList(
     val id: String,
@@ -29,5 +27,14 @@ data class PotentialShoppingItem(
 ) : Parcelable
 
 @Parcelize
-data class NutritionInfo(val idk: String) : Parcelable
+open class NutritionInfo(val name: String, val units: String, val value: Double) : Parcelable
+
+@Parcelize
+data class Calories(val a: Double): NutritionInfo("Calories", "kcal", a)
+
+@Parcelize
+data class Carbohydrates(val a: Double): NutritionInfo("Carbohydrates", "g", a)
+
+@Parcelize
+data class Sugar(val a: Double): NutritionInfo("Sugar", "g", a)
 
