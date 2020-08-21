@@ -2,6 +2,7 @@ package com.example.shopeepee.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import kotlinx.serialization.Serializable
 
 
 @Parcelize
@@ -14,6 +15,7 @@ data class ShoppingList(
 ) : Parcelable
 
 @Parcelize
+@Serializable
 data class ShoppingItem(
     val id: String,
     val name: String,
@@ -21,6 +23,7 @@ data class ShoppingItem(
 ) : Parcelable
 
 @Parcelize
+@Serializable
 data class PotentialShoppingItem(
     val id: String,
 //    Dollars
@@ -29,5 +32,6 @@ data class PotentialShoppingItem(
 ) : Parcelable
 
 @Parcelize
+@Serializable
 data class NutritionInfo(val idk: String) : Parcelable
 

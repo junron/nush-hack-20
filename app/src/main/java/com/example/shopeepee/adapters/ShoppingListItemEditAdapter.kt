@@ -5,46 +5,52 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.shopeepee.R
+import com.example.shopeepee.controllers.NewShoppingListController
 import com.example.shopeepee.models.ShoppingItem
 import com.example.shopeepee.util.android.onTextChange
-import kotlinx.android.synthetic.main.shopping_item.view.*
+import com.example.shopeepee.util.uuid
+import kotlinx.android.synthetic.main.shopping_item_editable.view.*
 
 class ShoppingListItemEditAdapter(
-    var items: MutableList<ShoppingItem>,
-    private val editable: Boolean
+    val items: MutableList<ShoppingItem>
 ) : BaseAdapter() {
-    private val baseUUID = "45c68702-e3b3-11ea-87d0-0242ac130003"
 
-    init {
-        if (editable) {
-            items.plusAssign(ShoppingItem(baseUUID, "Item name"))
-        }
-    }
+    private var focusLast = true
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val item = getItem(position)
-        return LayoutInflater.from(parent.context).inflate(R.layout.shopping_item, null).apply {
-            if (item.id == baseUUID) {
-                itemNameEdit.setText("")
-                itemName.hint = "Add item"
-                itemDelete.visibility = View.GONE
-            } else {
+        return LayoutInflater.from(parent.context).inflate(R.layout.shopping_item_editable, null)
+            .apply {
+                if (position == items.lastIndex) {
+                    itemDelete.visibility = View.GONE
+                    if (focusLast) {
+                        itemName.requestFocus()
+                        focusLast = false
+                    }
+                    if (item.name == "") {
+                        itemAdd.visibility = View.GONE
+                    }
+                } else {
+                    itemAdd.visibility = View.GONE
+                }
                 itemNameEdit.setText(item.name)
-            }
-            if (editable) {
+                itemNumber.text = "" + (position + 1)
                 itemNameEdit.onTextChange {
                     items[position] = item.copy(name = it)
+                    NewShoppingListController.updateValidity(items)
                 }
                 itemDelete.setOnClickListener {
-                    items.remove(item)
+                    items -= item
+                    NewShoppingListController.updateValidity(items)
                     notifyDataSetChanged()
                 }
-            } else {
-                itemName.isFocusable = false
-                itemName.isFocusableInTouchMode = false
-                itemDelete.visibility = View.GONE
+                itemAdd.setOnClickListener {
+                    items += ShoppingItem(uuid(), "")
+                    NewShoppingListController.updateValidity(items)
+                    focusLast = true
+                    notifyDataSetChanged()
+                }
             }
-        }
     }
 
     override fun getItem(position: Int) = items[position]
