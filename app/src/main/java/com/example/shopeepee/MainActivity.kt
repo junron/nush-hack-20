@@ -1,8 +1,10 @@
 package com.example.shopeepee
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.shopeepee.util.android.Navigation
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_settings to R.id.settings
             ), navController
         )
+
+
     }
 
     fun toggleDarkMode(dark: Boolean) {
@@ -65,4 +69,6 @@ class MainActivity : AppCompatActivity() {
         val newContext = newBase.createConfigurationContext(config)
         super.attachBaseContext(newContext)
     }
+
+
 }

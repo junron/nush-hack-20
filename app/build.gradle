@@ -33,10 +33,22 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    aaptOptions {
+        noCompress "tflite"
+    }
+
 }
 
 dependencies {
-    def nav_version = "2.3.0"
+    def nav_version = "2.2.1"
+
+    def camerax_version = "1.0.0-beta07"
+// CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+// CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+// CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha14"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -53,9 +65,14 @@ dependencies {
 
     implementation "com.koushikdutta.ion:ion:3.0.8"
 
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
     // Add the SDKs for any other Firebase products you want to use in your app
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
+
+    //for ML
+    implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-support:0.0.0-nightly') { changing = true }
 }
