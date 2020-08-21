@@ -40,8 +40,7 @@ class MainActivity : AppCompatActivity() {
     fun toggleDarkMode(dark: Boolean) {
         println("Dark theme? $dark")
         Preferences.setDarkMode(dark)
-        finish()
-        startActivity(intent)
+        recreate()
     }
 
     private fun updateTextScale() {
