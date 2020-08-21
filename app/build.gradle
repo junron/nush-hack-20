@@ -30,6 +30,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    aaptOptions {
+        noCompress "tflite"
+    }
+
 }
 
 dependencies {
@@ -54,4 +58,9 @@ dependencies {
 
     // Add the SDKs for any other Firebase products you want to use in your app
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
+
+    //for ML
+    implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly') { changing = true }
+    implementation('org.tensorflow:tensorflow-lite-support:0.0.0-nightly') { changing = true }
 }
