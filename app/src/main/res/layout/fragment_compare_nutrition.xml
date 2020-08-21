@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:numColumns="2"
         android:layout_margin="@dimen/text_margin"
-        android:id="@+id/shoppingListRecycler"
+        android:id="@+id/nutritionListRecycler"
         android:layout_width="match_parent">
     </GridView>
 </LinearLayout>
