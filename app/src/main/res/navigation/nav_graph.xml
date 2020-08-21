@@ -26,6 +26,11 @@
         android:id="@+id/newShoppingList"
         android:name="com.example.shopeepee.fragments.NewShoppingList"
         android:label="NewShoppingList" />
+    <activity
+        android:id="@+id/cameraActivity"
+        android:name="com.example.shopeepee.CameraActivity"
+        android:label="activity_camera"
+        tools:layout="@layout/activity_camera" />
     <fragment
         android:id="@+id/displayShoppingList"
         android:name="com.example.shopeepee.fragments.DisplayShoppingList"

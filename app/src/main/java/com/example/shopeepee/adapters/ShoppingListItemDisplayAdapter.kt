@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.shopping_item.view.*
 import kotlinx.android.synthetic.main.shopping_list_item.view.*
 
 class ShoppingListItemDisplayAdapter(
-    var items: MutableList<ShoppingItem>,
-    private val editable: Boolean
+    var items: MutableList<ShoppingItem>
 ) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
