@@ -41,6 +41,9 @@ object MainController : FragmentController {
                 Navigation.navigate(R.id.settings)
             }
             shoppingListItems.adapter = ShoppingListAdapter(this, shoppingLists)
+            newList.setOnClickListener {
+                Navigation.navigate(R.id.newShoppingList)
+            }
         }
     }
 

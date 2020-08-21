@@ -14,4 +14,8 @@
         android:name="com.example.shopeepee.fragments.Settings"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/newShoppingList"
+        android:name="com.example.shopeepee.fragments.NewShoppingList"
+        android:label="NewShoppingList" />
 </navigation>

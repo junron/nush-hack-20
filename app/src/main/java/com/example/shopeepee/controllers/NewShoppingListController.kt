@@ -1,46 +1,26 @@
 package com.example.shopeepee.controllers
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.example.shopeepee.R
-import com.example.shopeepee.adapters.ShoppingListAdapter
-import com.example.shopeepee.models.PotentialShoppingItem
-import com.example.shopeepee.models.ShoppingItem
-import com.example.shopeepee.models.ShoppingList
+import com.example.shopeepee.adapters.ShoppingListItemAdapter
 import com.example.shopeepee.util.android.Navigation
-import kotlinx.android.synthetic.main.fragment_main_content.*
+import kotlinx.android.synthetic.main.fragment_new_shopping_list.*
 
 object NewShoppingListController : FragmentController {
     private lateinit var context: Fragment
 
     override fun init(context: Fragment) {
-        //TODO: Firebase
-        val shoppingLists = listOf(
-            ShoppingList(
-                "d9a79784-e3b0-11ea-87d0-0242ac130003",
-                "Food",
-                listOf(
-                    ShoppingItem(
-                        "e5c54854-e3b0-11ea-87d0-0242ac130003",
-                        "Carrot"
-                    )
-                ),
-                listOf(
-                    PotentialShoppingItem(
-                        "e5c54854-e3b0-11ea-87d0-0242ac130003",
-                        0.5,
-                        emptyList()
-                    )
-                ),
-                emptyList()
-            )
-        )
         NewShoppingListController.context = context
         with(context) {
-            toolbar.title = "Shopeepee"
-            settings.setOnClickListener {
-                Navigation.navigate(R.id.settings)
+            newShoppingListToolbar.apply {
+                setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+                navigationIcon?.setTint(Color.WHITE)
+                setNavigationOnClickListener {
+                    Navigation.navigate(R.id.mainContent)
+                }
             }
-            shoppingListItems.adapter = ShoppingListAdapter(this, shoppingLists)
+            itemsRecycler.adapter = ShoppingListItemAdapter(mutableListOf(), true)
         }
     }
 
