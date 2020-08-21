@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1071005320035",
+    "firebase_url": "https://nush-hack-20.firebaseio.com",
+    "project_id": "nush-hack-20",
+    "storage_bucket": "nush-hack-20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071005320035:android:e8fc038c2b0d5dedc00956",
+        "android_client_info": {
+          "package_name": "com.example.shopeepee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071005320035-maoajfu1svtqtimrgu91o4m8223ijjce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhUa6_B5B3nzFqd3OzHnrNUwJvndXLHEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071005320035-maoajfu1svtqtimrgu91o4m8223ijjce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

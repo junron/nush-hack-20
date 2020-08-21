@@ -1,13 +1,12 @@
-package com.example.nav_base_2.fragments
+package com.example.shopeepee.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nav_base_2.controllers.MainController
-
-import com.example.nav_base_2.R
+import androidx.fragment.app.Fragment
+import com.example.shopeepee.R
+import com.example.shopeepee.controllers.MainController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +48,7 @@ class MainContent : Fragment() {
         super.onActivityCreated(savedInstanceState)
         MainController.restoreState()
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

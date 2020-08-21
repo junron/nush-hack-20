@@ -1,12 +1,12 @@
-package com.example.nav_base_2
+package com.example.shopeepee
 
 import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import com.example.nav_base_2.util.android.Navigation
-import com.example.nav_base_2.util.android.Preferences
+import com.example.shopeepee.util.android.Navigation
+import com.example.shopeepee.util.android.Preferences
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

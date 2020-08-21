@@ -1,9 +1,9 @@
-package com.example.nav_base_2.controllers
+package com.example.shopeepee.controllers
 
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.example.nav_base_2.MainActivity
-import com.example.nav_base_2.util.android.Preferences
+import com.example.shopeepee.MainActivity
+import com.example.shopeepee.util.android.Preferences
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 object SettingsController : FragmentController {
