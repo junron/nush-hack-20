@@ -11,20 +11,19 @@ object DisplayShoppingListController : FragmentController {
     private var list: ShoppingList? = null;
     override fun init(context: Fragment) {
         DisplayShoppingListController.context = context;
-        with (context) {
-            if (list != null) {
-                var items = mutableListOf<ShoppingItem>();
-                list!!.items.forEach {
-                    items.add(ShoppingItem(it.id, it.name, false));
-                }
-                list!!.confirmedItems.forEach { confirmed->
-                    val item = list!!.items.firstOrNull { it.id == confirmed.id };
-                    if (item != null) {
-                        item.acquired=true;
-                    }
-                }
-                shoppingListRecycler.adapter=ShoppingListItemDisplayAdapter(items);
+        with(context) {
+            val list = list ?: return
+            val items = mutableListOf<ShoppingItem>();
+            list.items.forEach {
+                items.add(ShoppingItem(it.id, it.name, false));
             }
+            list.confirmedItems.forEach { confirmed ->
+                val item = list.items.firstOrNull { it.id == confirmed.id };
+                if (item != null) {
+                    item.acquired = true;
+                }
+            }
+            shoppingListRecycler.adapter = ShoppingListItemDisplayAdapter(items);
         }
     }
 
@@ -33,6 +32,5 @@ object DisplayShoppingListController : FragmentController {
     }
 
     override fun restoreState() {
-        TODO("Not yet implemented")
     }
 }

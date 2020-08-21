@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.shopeepee.R
 import com.example.shopeepee.controllers.DisplayShoppingListController
-import com.example.shopeepee.controllers.NewShoppingListController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +24,7 @@ class DisplayShoppingList : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    val args : DisplayShoppingListArgs by navArgs()
+    private val args: DisplayShoppingListArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
