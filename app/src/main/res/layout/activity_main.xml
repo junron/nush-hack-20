@@ -16,13 +16,4 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomAppBarNav"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="?android:attr/windowBackground"
-        android:theme="@style/ThemeOverlay.MaterialComponents"
-        android:layout_gravity="bottom"
-        app:menu="@menu/nav_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

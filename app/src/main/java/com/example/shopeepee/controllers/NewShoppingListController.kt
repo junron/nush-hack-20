@@ -9,7 +9,7 @@ import com.example.shopeepee.models.ShoppingList
 import com.example.shopeepee.util.android.Navigation
 import kotlinx.android.synthetic.main.fragment_main_content.*
 
-object MainController : FragmentController {
+object NewShoppingListController : FragmentController {
     private lateinit var context: Fragment
 
     override fun init(context: Fragment) {
@@ -34,7 +34,7 @@ object MainController : FragmentController {
                 emptyList()
             )
         )
-        MainController.context = context
+        NewShoppingListController.context = context
         with(context) {
             toolbar.title = "Shopeepee"
             settings.setOnClickListener {

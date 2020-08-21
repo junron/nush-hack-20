@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             mapOf(
                 R.id.nav_main to R.id.mainContent,
                 R.id.nav_settings to R.id.settings
-            ), navController, bottomAppBarNav
+            ), navController
         )
     }
 

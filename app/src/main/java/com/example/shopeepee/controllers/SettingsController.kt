@@ -1,8 +1,11 @@
 package com.example.shopeepee.controllers
 
+import android.graphics.Color
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.example.shopeepee.MainActivity
+import com.example.shopeepee.R
+import com.example.shopeepee.util.android.Navigation
 import com.example.shopeepee.util.android.Preferences
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -14,6 +17,13 @@ object SettingsController : FragmentController {
     override fun init(context: Fragment) {
         SettingsController.context = context
         with(context) {
+            toolbarSettings.apply {
+                setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+                navigationIcon?.setTint(Color.WHITE)
+                setNavigationOnClickListener {
+                    Navigation.navigate(R.id.mainContent)
+                }
+            }
             darkMode = Preferences.isDarkMode()
             fontScale = Preferences.getTextScale()
             darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
