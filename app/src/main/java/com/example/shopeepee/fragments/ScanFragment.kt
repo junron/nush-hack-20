@@ -99,7 +99,7 @@ class ScanFragment : Fragment() {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
             val objd = ObjectDetector { luma ->
-                Log.d(TAG, "Object: $luma")
+                ScanController.scanned(luma)
             }
             objd.load()
 
@@ -223,6 +223,7 @@ class ScanFragment : Fragment() {
             interpreter.run(inputs, inputOutputOptions)
                 .addOnSuccessListener { result ->
                     val output = result.getOutput<Array<FloatArray>>(0)[0]
+                    output[4] = 0F
                     var idxmax = -1;
                     var max = -1.0f;
                     (0..7).forEach { idx ->
@@ -231,8 +232,12 @@ class ScanFragment : Fragment() {
                             idxmax = idx;
                         }
                     }
-                    listener(STRINGMAP[idxmax])
-                }.addOnFailureListener{ e ->
+                    if (max < 0.3) {
+                        listener("NONE")
+                    } else {
+                        listener(STRINGMAP[idxmax])
+                    }
+                }.addOnFailureListener { e ->
                     e.printStackTrace()
                 }
 

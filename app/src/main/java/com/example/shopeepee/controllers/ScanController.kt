@@ -8,15 +8,18 @@ import com.example.shopeepee.R
 import com.example.shopeepee.adapters.ShoppingListItemDisplaySmall
 import com.example.shopeepee.fragments.MainContentDirections
 import com.example.shopeepee.fragments.ScanFragment
+import com.example.shopeepee.models.PotentialShoppingItem
 import com.example.shopeepee.models.ShoppingList
 import com.example.shopeepee.util.android.Navigation
 import com.example.shopeepee.viewmodels.ShoppingListsViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_scan.*
 
 object ScanController : FragmentController {
     private lateinit var context: Fragment
     private lateinit var shoppingList: ShoppingList
     private lateinit var viewModel: ShoppingListsViewModel
+    private var currentItem: PotentialShoppingItem? = null
 
     override fun init(context: Fragment) {
         ScanController.context = context
@@ -45,6 +48,44 @@ object ScanController : FragmentController {
 
     fun data(shoppingListId: String, viewModel: ShoppingListsViewModel) {
         shoppingList = viewModel.shoppingLists.value.find { it.id == shoppingListId } ?: return
+    }
+
+    private val scannedResults = MutableList(10) {
+        "NONE"
+    }
+
+    private val possible = arrayOf(
+        "apple",
+        "brocolli",
+        "can_beans",
+        "carrot",
+        "noodle",
+        "potato",
+        "soda"
+    )
+
+    fun scanned(res: String) {
+        scannedResults += res
+        scannedResults.removeAt(0)
+        val counts = possible.map {
+            scannedResults.count { item -> it == item }
+        }
+        val max = counts.max() ?: return
+        println(max)
+        if (max > 4) {
+            val idxmax = counts.indexOf(max)
+            val objName = possible[idxmax]
+            Snackbar.make(context.itemsDrawer, "Is this $objName?", Snackbar.LENGTH_SHORT)
+                .setAction("Yes") {
+                    val item = shoppingList.items.find { it.name == objName } ?: return@setAction
+                    currentItem = PotentialShoppingItem(
+                        item.id,
+                        null,
+                        emptyList()
+                    )
+                }
+                .show()
+        }
     }
 
     override fun restoreState() {
