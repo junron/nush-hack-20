@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
-        android:name="com.example.shopeepee.ScanFragment"
+        android:name="com.example.shopeepee.fragments.ScanFragment"
         android:label="fragment_scan"
         tools:layout="@layout/fragment_scan" />
 </navigation>
