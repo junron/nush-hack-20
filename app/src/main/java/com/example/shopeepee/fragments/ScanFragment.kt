@@ -1,4 +1,4 @@
-package com.example.shopeepee
+package com.example.shopeepee.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -17,15 +17,19 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
+import com.example.shopeepee.R
+import com.example.shopeepee.controllers.ScanController
+import com.example.shopeepee.util.TextAnalyzer
+import com.example.shopeepee.viewmodels.ShoppingListsViewModel
 import com.google.firebase.ml.custom.*
-import com.googlecode.tesseract.android.TessBaseAPI
 import kotlinx.android.synthetic.main.fragment_scan.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.min
-
 
 typealias ObjectListener = (luma: String) -> Unit
 
@@ -35,6 +39,8 @@ typealias ObjectListener = (luma: String) -> Unit
  * create an instance of this fragment.
  */
 class ScanFragment : Fragment() {
+    val texts = mutableListOf<String>();
+
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
@@ -42,7 +48,7 @@ class ScanFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -62,6 +68,15 @@ class ScanFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_scan, container, false)
+    }
+
+    val viewModel: ShoppingListsViewModel by activityViewModels()
+    private val args: ScanFragmentArgs by navArgs()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        args.shoppingId?.let { ScanController.data(it, viewModel) }
+        ScanController.init(this)
     }
 
     override fun onRequestPermissionsResult(
@@ -88,7 +103,7 @@ class ScanFragment : Fragment() {
             // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
             val objd = ObjectDetector { luma ->
-                Log.d(TAG, "Object: $luma")
+                ScanController.scanned(luma)
             }
             objd.load(context!!)
 
@@ -97,7 +112,18 @@ class ScanFragment : Fragment() {
                 .also {
                     it.setAnalyzer(cameraExecutor, objd)
                 }
-
+            val i2 = ImageAnalysis.Builder()
+                .build()
+                .also {
+                    it.setAnalyzer(cameraExecutor, TextAnalyzer { extract ->
+                        val reg = Regex("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
+                        for (i in reg.findAll(extract)) {
+                            texts.add(i.value)
+                            Log.d("money", i.value)
+                            ScanController.priceDetected(i.value.substring(1).toDouble())
+                        }
+                    })
+                }
             // Preview
             val preview = Preview.Builder()
                 .build()
@@ -112,7 +138,7 @@ class ScanFragment : Fragment() {
                 cameraProvider.unbindAll()
 
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
+                    this, cameraSelector, preview, imageAnalyzer, i2
                 )
 
             } catch (exc: Exception) {
@@ -123,7 +149,6 @@ class ScanFragment : Fragment() {
     }
 
     private class ObjectDetector(private val listener: ObjectListener) : ImageAnalysis.Analyzer {
-        val texts = mutableListOf<String>();
         lateinit var context: Context;
         val STRINGMAP: Array<String> = arrayOf(
             "apple",
@@ -137,7 +162,7 @@ class ScanFragment : Fragment() {
         )
         lateinit var interpreter: FirebaseModelInterpreter
         lateinit var inputOutputOptions: FirebaseModelInputOutputOptions
-        fun load(context: Context)  {
+        fun load(context: Context) {
             this.context = context
             val localModel = FirebaseCustomLocalModel.Builder()
                 .setAssetFilePath("model.tflite")
@@ -174,13 +199,13 @@ class ScanFragment : Fragment() {
             return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         }
 
-        fun Bitmap.toSquare():Bitmap?{
+        fun Bitmap.toSquare(): Bitmap? {
             // get the small side of bitmap
             val side = min(this.width, this.height);
 
             // calculate the x and y offset
-            val xOffset = (width - side) /2
-            val yOffset = (height - side)/2
+            val xOffset = (width - side) / 2
+            val yOffset = (height - side) / 2
 
             // create a square bitmap
             // a square is closed, two dimensional shape with 4 equal sides
@@ -197,24 +222,15 @@ class ScanFragment : Fragment() {
         override fun analyze(image: ImageProxy) {
             var bitmap = image.image!!.toBitmap()
 
-            var extract = extractText(bitmap, context);
-
-            val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
-            for (i in reg.findAll(extract!!)){
-                texts.add(i.value);
-                Log.d("money", i.value)
-            }
-
-
             bitmap = bitmap.toSquare()!!
             val batchNum = 0
             val input = Array(1) { Array(224) { Array(224) { FloatArray(3) } } }
             for (x in 0..223) {
                 for (y in 0..223) {
                     val pixel = bitmap.getPixel(x, y)
-                    input[batchNum][x][y][0] = Color.red(pixel)/255.0f
-                    input[batchNum][x][y][1] = Color.green(pixel)/255.0f
-                    input[batchNum][x][y][2] = Color.blue(pixel)/255.0f
+                    input[batchNum][x][y][0] = Color.red(pixel) / 255.0f
+                    input[batchNum][x][y][1] = Color.green(pixel) / 255.0f
+                    input[batchNum][x][y][2] = Color.blue(pixel) / 255.0f
                 }
             }
 
@@ -225,15 +241,21 @@ class ScanFragment : Fragment() {
             interpreter.run(inputs, inputOutputOptions)
                 .addOnSuccessListener { result ->
                     val output = result.getOutput<Array<FloatArray>>(0)[0]
-                    var idxmax = -1; var max = -1.0f;
+                    output[4] = 0F
+                    var idxmax = -1;
+                    var max = -1.0f;
                     (0..7).forEach { idx ->
                         if (output.get(idx) > max) {
                             max = output.get(idx)
                             idxmax = idx;
                         }
                     }
-                    listener(STRINGMAP[idxmax])
-                }.addOnFailureListener{ e ->
+                    if (max < 0.2) {
+                        listener("NONE")
+                    } else {
+                        listener(STRINGMAP[idxmax])
+                    }
+                }.addOnFailureListener { e ->
                     e.printStackTrace()
                 }
 
@@ -241,14 +263,6 @@ class ScanFragment : Fragment() {
             image.close()
         }
 
-        private fun extractText(bitmap: Bitmap, context: Context): String? {
-            val tessBaseApi = TessBaseAPI()
-            tessBaseApi.init(context!!.getFilesDir().absolutePath+ "/tesseract/", "eng")
-            tessBaseApi.setImage(bitmap)
-            val extractedText: String = tessBaseApi.getUTF8Text()
-            tessBaseApi.end()
-            return extractedText
-        }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

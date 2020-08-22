@@ -43,7 +43,7 @@ object NewShoppingListController : FragmentController {
                     emptyList(),
                     emptyList()
                 )
-                (context as NewShoppingList).viewModel.createShoppingList(shoppingList)
+                (context as NewShoppingList).viewModel.setShoppingList(shoppingList)
                 Navigation.navigate(R.id.mainContent)
             }
         }
