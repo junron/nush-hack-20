@@ -40,7 +40,10 @@ object ScanController : FragmentController {
                 peek.setOnClickListener {
                     itemsDrawer.openDrawer(Gravity.RIGHT)
                 }
-                itemsListView.adapter = ShoppingListItemDisplaySmall(shoppingList)
+                viewModel.shoppingLists.observe({ lifecycle }) {
+                    shoppingList = it.find { it.id == shoppingList.id } ?: return@observe
+                    itemsListView.adapter = ShoppingListItemDisplaySmall(shoppingList)
+                }
             }
 
         }
@@ -71,10 +74,10 @@ object ScanController : FragmentController {
             scannedResults.count { item -> it == item }
         }
         val max = counts.max() ?: return
-        println(max)
         if (max > 4) {
             val idxmax = counts.indexOf(max)
             val objName = possible[idxmax]
+            if (currentItem != null) return
             Snackbar.make(context.itemsDrawer, "Is this $objName?", Snackbar.LENGTH_SHORT)
                 .setAction("Yes") {
                     val item = shoppingList.items.find { it.name == objName } ?: return@setAction
@@ -83,9 +86,17 @@ object ScanController : FragmentController {
                         null,
                         emptyList()
                     )
+                    val newShoppingList = shoppingList.copy(
+                        potentialItems = shoppingList.potentialItems + currentItem!!
+                    )
+                    updateItem(newShoppingList)
                 }
                 .show()
         }
+    }
+
+    private fun updateItem(shoppingList: ShoppingList) {
+        viewModel.setShoppingList(shoppingList)
     }
 
     override fun restoreState() {

@@ -27,7 +27,7 @@ class ShoppingListsViewModel : ViewModel() {
             }
     }
 
-    fun createShoppingList(shoppingList: ShoppingList) {
+    fun setShoppingList(shoppingList: ShoppingList) {
         val serialized = SerializedShoppingList.fromShoppingList(shoppingList)
         Firebase.firestore.collection("shopping-lists")
             .document(shoppingList.id)

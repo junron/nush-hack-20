@@ -39,7 +39,7 @@ object DisplayShoppingListController : FragmentController {
             scan.setOnClickListener {
                 findNavController().navigate(ScanFragmentDirections.scanShoppingList(list.id))
             }
-            shoppingListRecycler.adapter = ShoppingListItemDisplayAdapter(items);
+            shoppingListRecycler.adapter = ShoppingListItemDisplayAdapter(items, false);
         }
     }
 

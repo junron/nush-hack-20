@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.*
 import android.media.Image
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,9 +21,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.shopeepee.R
 import com.example.shopeepee.controllers.ScanController
+import com.example.shopeepee.util.TextAnalyzer
 import com.example.shopeepee.viewmodels.ShoppingListsViewModel
 import com.google.firebase.ml.custom.*
-import com.googlecode.tesseract.android.TessBaseAPI
 import kotlinx.android.synthetic.main.fragment_scan.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -151,7 +150,7 @@ class ScanFragment : Fragment() {
         )
         lateinit var interpreter: FirebaseModelInterpreter
         lateinit var inputOutputOptions: FirebaseModelInputOutputOptions
-        fun load(context: Context)  {
+        fun load(context: Context) {
             this.context = context
             val localModel = FirebaseCustomLocalModel.Builder()
                 .setAssetFilePath("model.tflite")
@@ -211,14 +210,13 @@ class ScanFragment : Fragment() {
         override fun analyze(image: ImageProxy) {
             var bitmap = image.image!!.toBitmap()
 
-            var extract = extractText(bitmap, context);
-
-            val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
-            for (i in reg.findAll(extract!!)){
-                texts.add(i.value);
-                Log.d("money", i.value)
-            }
-
+            TextAnalyzer { extract ->
+                val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
+                for (i in reg.findAll(extract)) {
+                    texts.add(i.value)
+                    Log.d("money", i.value)
+                }
+            }.analyze(image)
 
             bitmap = bitmap.toSquare()!!
             val batchNum = 0
@@ -261,15 +259,6 @@ class ScanFragment : Fragment() {
             image.close()
         }
 
-        private fun extractText(bitmap: Bitmap, context: Context): String? {
-            val tessBaseApi = TessBaseAPI()
-            val tes = Environment.getExternalStorageDirectory().toString() + "/TesseractSample/";
-            tessBaseApi.init(tes, "eng")
-            tessBaseApi.setImage(bitmap)
-            val extractedText: String = tessBaseApi.getUTF8Text()
-            tessBaseApi.end()
-            return extractedText
-        }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
