@@ -18,11 +18,11 @@
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <GridView
+    <ListView
         android:layout_height="match_parent"
         android:numColumns="2"
         android:layout_margin="@dimen/text_margin"
-        android:id="@+id/nutritionListRecycler"
+        android:id="@+id/nutritionCompareRecycler"
         android:layout_width="match_parent">
-    </GridView>
+    </ListView>
 </LinearLayout>

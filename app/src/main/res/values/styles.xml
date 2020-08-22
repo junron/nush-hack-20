@@ -7,7 +7,6 @@
 
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <style name="WindowAnimationTransition">
