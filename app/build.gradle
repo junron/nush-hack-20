@@ -57,11 +57,11 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
@@ -71,16 +71,18 @@ dependencies {
     implementation "com.koushikdutta.ion:ion:3.0.8"
 
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
-    implementation('com.google.firebase:firebase-ml-vision:24.1.0'){
-        exclude group: "com.google.android.gms", module: "play-services-vision-common"
+    implementation('com.google.firebase:firebase-ml-vision:24.0.3') {
+        exclude group: "com.google.firebase", module: "firebase-ml-common"
     }
+//            {
+//        exclude group: "com.google.android.gms", module: "play-services-vision"
+//    }
+
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
     // Add the SDKs for any other Firebase products you want to use in your app
     implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
-    implementation ('com.google.firebase:firebase-ml-model-interpreter:22.0.4'){
-        exclude group: "com.google.firebase", module: "firebase-ml-common"
-    }
+    implementation('com.google.firebase:firebase-ml-model-interpreter:22.0.3')
 
     //for ML
     implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }

@@ -210,7 +210,14 @@ class ScanFragment : Fragment() {
         override fun analyze(image: ImageProxy) {
             var bitmap = image.image!!.toBitmap()
 
+            val mediaImage = image.image
+
+            val planes = mediaImage!!.planes
+            for (plane in planes) {
+                plane.buffer.rewind()
+            }
             TextAnalyzer { extract ->
+                println("extract $extract")
                 val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
                 for (i in reg.findAll(extract)) {
                     texts.add(i.value)
