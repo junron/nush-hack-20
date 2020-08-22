@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.*
 import android.media.Image
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -243,7 +244,8 @@ class ScanFragment : Fragment() {
 
         private fun extractText(bitmap: Bitmap, context: Context): String? {
             val tessBaseApi = TessBaseAPI()
-            tessBaseApi.init(context!!.getFilesDir().absolutePath+ "/tesseract/", "eng")
+            val tes = Environment.getExternalStorageDirectory().toString() + "/TesseractSample/";
+            tessBaseApi.init(tes, "eng")
             tessBaseApi.setImage(bitmap)
             val extractedText: String = tessBaseApi.getUTF8Text()
             tessBaseApi.end()
