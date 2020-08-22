@@ -24,18 +24,18 @@ class NutritionCompareAdapter(var data: List<Pair<NutritionInfo, NutritionInfo>>
         val item = getItem(position)
         return LayoutInflater.from(parent.context).inflate(R.layout.nutrition_compare_entry, null).apply {
             entry_name.text = item.first.name
-            if (item.first.value != null) item1_name.text = String.format("%f.1d", item.first.value)
+            if (item.first.value != null) item1_name.text = String.format("%.1f", item.first.value)
             else item1_name.text = "N/A"
-            if (item.second.value != null) item2_name.text = String.format("%f.1d", item.second.value)
+            if (item.second.value != null) item2_name.text = String.format("%.1f", item.second.value)
             else item2_name.text = "N/A"
-            item1_units.text = item.first.name
-            item2_units.text = item.second.name
+            item1_units.text = item.first.units
+            item2_units.text = item.second.units
             if (item.first.value != null && item.second.value != null && item.first.value!! > item.second.value!!) {
-                item1_name.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_caret_arrow_up, 0);
-                item2_name.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_caret_arrow_down, 0);
+                item1_name.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_caret_arrow_up, 0, 0,0);
+                item2_name.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_caret_arrow_down, 0, 0,0);
             } else if (item.first.value != null && item.second.value != null && item.first.value!! < item.second.value!!) {
-                item1_name.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_caret_arrow_up, 0);
-                item2_name.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_caret_arrow_down, 0);
+                item1_name.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_caret_arrow_up, 0, 0,0);
+                item2_name.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_caret_arrow_down, 0, 0,0);
             }
         }
     }

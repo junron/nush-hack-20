@@ -24,7 +24,7 @@ object NutritionCompareController : FragmentController {
             val items = mutableListOf<Pair<NutritionInfo, NutritionInfo>>();
             var data1 = list.nutritionData1.sortedBy { it.name }
             var data2 = list.nutritionData2.sortedBy { it.name }
-            val i = 0
+            var i = 0
             var swap = true
             if (data1.size < data2.size) {
                 val temp = data1
@@ -37,8 +37,12 @@ object NutritionCompareController : FragmentController {
                 } else if (it.name != data2[i].name) {
                     if (it.name > data2[i].name) {
                         items.add(Pair(NutritionInfo(data2[i].name, data2[i].units, null), NutritionInfo(data2[i].name, data2[i].units, data2[i].value)))
+                        i += 1
                     }
                     items.add(Pair(NutritionInfo(it.name, it.units, it.value), NutritionInfo(it.name, it.units, null)))
+                } else {
+                    items.add(Pair(NutritionInfo(it.name, it.units, it.value), NutritionInfo(data2[i].name, data2[i].units, data2[i].value)))
+                    i += 1
                 }
             }
 
