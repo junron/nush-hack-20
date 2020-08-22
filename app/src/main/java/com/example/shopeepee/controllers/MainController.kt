@@ -15,7 +15,7 @@ object MainController : FragmentController {
         with(context) {
             toolbar.title = "Shopeepee"
             settings.setOnClickListener {
-                Navigation.navigate(R.id.scanFragment)
+                Navigation.navigate(R.id.settings)
             }
             newList.setOnClickListener {
                 Navigation.navigate(R.id.newShoppingList)
