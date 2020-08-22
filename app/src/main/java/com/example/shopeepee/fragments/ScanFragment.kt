@@ -213,9 +213,11 @@ class ScanFragment : Fragment() {
             val mediaImage = image.image
 
             val planes = mediaImage!!.planes
+//            if (planes.size > 3) {
             for (plane in planes) {
                 plane.buffer.rewind()
             }
+//            }
             TextAnalyzer { extract ->
                 println("extract $extract")
                 val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")

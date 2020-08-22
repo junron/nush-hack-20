@@ -26,15 +26,20 @@ class TextAnalyzer(private val callback: (String) -> Unit) : ImageAnalysis.Analy
     override fun analyze(image: ImageProxy) {
         val mediaImage = image.image ?: return
         val imageRotation = degreesToFirebaseRotation(image.imageInfo.rotationDegrees)
-        val firebaseImage = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
-
-        GlobalScope.launch {
-            val result = performOcr(firebaseImage.bitmap)
-            image.close()
-            withContext(Dispatchers.Main) {
-                callback(result)
+        try {
+            val firebaseImage = FirebaseVisionImage.fromMediaImage(mediaImage, imageRotation)
+            GlobalScope.launch {
+                val result = performOcr(firebaseImage.bitmap)
+                image.close()
+                withContext(Dispatchers.Main) {
+                    callback(result)
+                }
             }
+        } catch (e: IllegalArgumentException) {
+            return
         }
+
+
     }
 
     private fun degreesToFirebaseRotation(degrees: Int): Int = when (degrees) {
