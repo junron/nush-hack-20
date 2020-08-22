@@ -19,14 +19,14 @@
             app:titleTextColor="@color/white">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/peek"
+                android:id="@+id/scan"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                app:icon="@drawable/ic_baseline_remove_red_eye_24"
+                app:icon="@drawable/ic_baseline_photo_camera_24"
                 app:iconGravity="end"
                 app:iconTint="@color/white" />
 

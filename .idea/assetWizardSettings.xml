@@ -16,10 +16,24 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/D:/jetbrains/apps/AndroidStudio/ch-0/193.6626763/plugins/android/lib/android.jar!/images/material/icons/materialicons/cancel/baseline_cancel_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_caret_arrow_down" />
+                            <entry key="outputName" value="ic_baseline_cancel_24" />
                             <entry key="sourceFile" value="C:\Users\linyi\Downloads\down.svg" />
                           </map>
                         </option>

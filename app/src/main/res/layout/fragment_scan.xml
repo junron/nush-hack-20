@@ -65,14 +65,21 @@
         android:layout_marginStart="-64dp">
 
         <LinearLayout
+            android:layout_margin="@dimen/text_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="owoowoow" />
+                android:text="Items" />
+
+            <ListView
+                android:id="@+id/itemsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 
