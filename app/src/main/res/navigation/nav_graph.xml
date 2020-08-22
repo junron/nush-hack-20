@@ -7,6 +7,9 @@
     <action android:id="@+id/showDisplayShoppingList"
         app:destination="@id/displayShoppingList">
     </action>
+    <action android:id="@+id/showNutritionCompareList"
+        app:destination="@id/displayCompareNutrition">
+    </action>
     <fragment
         android:id="@+id/mainContent"
         android:name="com.example.shopeepee.fragments.MainContent"
@@ -34,6 +37,16 @@
             android:name="Items"
             app:nullable="true"
             app:argType="com.example.shopeepee.models.ShoppingList"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayCompareNutrition"
+        android:name="com.example.shopeepee.fragments.NutritionCompareList"
+        android:label="NutritionCompareList" >
+        <argument
+            android:name="Items"
+            app:nullable="true"
+            app:argType="com.example.shopeepee.models.CompareNutrition"
             android:defaultValue="@null" />
     </fragment>
     <fragment
