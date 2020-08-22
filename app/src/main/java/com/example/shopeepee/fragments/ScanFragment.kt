@@ -2,6 +2,7 @@ package com.example.shopeepee.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.media.Image
@@ -22,6 +23,7 @@ import com.example.shopeepee.R
 import com.example.shopeepee.controllers.ScanController
 import com.example.shopeepee.viewmodels.ShoppingListsViewModel
 import com.google.firebase.ml.custom.*
+import com.googlecode.tesseract.android.TessBaseAPI
 import kotlinx.android.synthetic.main.fragment_scan.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -101,7 +103,7 @@ class ScanFragment : Fragment() {
             val objd = ObjectDetector { luma ->
                 ScanController.scanned(luma)
             }
-            objd.load()
+            objd.load(context!!)
 
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
@@ -134,6 +136,8 @@ class ScanFragment : Fragment() {
     }
 
     private class ObjectDetector(private val listener: ObjectListener) : ImageAnalysis.Analyzer {
+        val texts = mutableListOf<String>();
+        lateinit var context: Context;
         val STRINGMAP: Array<String> = arrayOf(
             "apple",
             "brocolli",
@@ -146,7 +150,8 @@ class ScanFragment : Fragment() {
         )
         lateinit var interpreter: FirebaseModelInterpreter
         lateinit var inputOutputOptions: FirebaseModelInputOutputOptions
-        fun load() {
+        fun load(context: Context)  {
+            this.context = context
             val localModel = FirebaseCustomLocalModel.Builder()
                 .setAssetFilePath("model.tflite")
                 .build()
@@ -204,6 +209,16 @@ class ScanFragment : Fragment() {
         @SuppressLint("UnsafeExperimentalUsageError")
         override fun analyze(image: ImageProxy) {
             var bitmap = image.image!!.toBitmap()
+
+            var extract = extractText(bitmap, context);
+
+            val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
+            for (i in reg.findAll(extract!!)){
+                texts.add(i.value);
+                Log.d("money", i.value)
+            }
+
+
             bitmap = bitmap.toSquare()!!
             val batchNum = 0
             val input = Array(1) { Array(224) { Array(224) { FloatArray(3) } } }
@@ -243,6 +258,15 @@ class ScanFragment : Fragment() {
 
 
             image.close()
+        }
+
+        private fun extractText(bitmap: Bitmap, context: Context): String? {
+            val tessBaseApi = TessBaseAPI()
+            tessBaseApi.init(context!!.getFilesDir().absolutePath+ "/tesseract/", "eng")
+            tessBaseApi.setImage(bitmap)
+            val extractedText: String = tessBaseApi.getUTF8Text()
+            tessBaseApi.end()
+            return extractedText
         }
     }
 

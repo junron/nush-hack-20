@@ -13,6 +13,9 @@
     <action android:id="@+id/showNutritionCompareList"
         app:destination="@id/displayCompareNutrition">
     </action>
+    <action android:id="@+id/showNutritionInfoList"
+        app:destination="@id/displayNutritionInfo">
+    </action>
     <fragment
         android:id="@+id/mainContent"
         android:name="com.example.shopeepee.fragments.MainContent"
@@ -61,6 +64,15 @@
             android:name="Items"
             android:defaultValue="@null"
             app:argType="com.example.shopeepee.models.CompareNutrition"
-            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayNutritionInfo"
+        android:name="com.example.shopeepee.fragments.NutritionInfoList"
+        android:label="NutritionInfoList" >
+        <argument
+            android:name="Items"
+            app:nullable="true"
+            app:argType="com.example.shopeepee.models.ShoppingItem"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

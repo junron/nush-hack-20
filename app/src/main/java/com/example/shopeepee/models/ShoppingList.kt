@@ -20,7 +20,8 @@ data class ShoppingList(
 data class ShoppingItem(
     val id: String,
     val name: String,
-    var acquired: Boolean = false
+    var acquired: Boolean = false,
+    val nutritionInfo: List<NutritionInfo>?=null
 ) : Parcelable
 
 @Parcelize
