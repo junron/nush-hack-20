@@ -36,4 +36,9 @@
             app:argType="com.example.shopeepee.models.ShoppingList"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.example.shopeepee.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" />
 </navigation>

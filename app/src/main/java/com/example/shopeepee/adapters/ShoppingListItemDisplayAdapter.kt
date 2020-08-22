@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.core.content.ContextCompat
 import com.example.shopeepee.R
 import com.example.shopeepee.models.ShoppingItem
-import com.example.shopeepee.util.android.onTextChange
-import kotlinx.android.synthetic.main.shopping_item.view.*
 import kotlinx.android.synthetic.main.shopping_list_item.view.*
 
 class ShoppingListItemDisplayAdapter(
