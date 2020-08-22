@@ -23,7 +23,7 @@ object DisplayShoppingListController : FragmentController {
                     item.acquired = true;
                 }
             }
-            shoppingListRecycler.adapter = ShoppingListItemDisplayAdapter(items);
+            shoppingListRecycler.adapter = ShoppingListItemDisplayAdapter(items, true);
         }
     }
 
