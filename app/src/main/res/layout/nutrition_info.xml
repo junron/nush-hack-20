@@ -22,12 +22,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:text="Calories"
+            android:textSize="30dp"
             android:id="@+id/item_name"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:text="500.0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/item_value"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/item_status"/>
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:text="kcal"
+            android:id="@+id/item_units"/>
 
     </LinearLayout>
     
