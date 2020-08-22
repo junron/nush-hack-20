@@ -232,8 +232,8 @@ class ScanFragment : Fragment() {
                         }
                     }
                     listener(STRINGMAP[idxmax])
-                }.addOnFailureListener { e ->
-
+                }.addOnFailureListener{ e ->
+                    e.printStackTrace()
                 }
 
 
