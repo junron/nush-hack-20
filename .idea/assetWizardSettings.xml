@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/jetbrains/apps/AndroidStudio/ch-0/193.6626763/plugins/android/lib/android.jar!/images/material/icons/materialicons/delete/baseline_delete_24.xml" />
+                                      <entry key="url" value="jar:file:/D:/jetbrains/apps/AndroidStudio/ch-0/193.6626763/plugins/android/lib/android.jar!/images/material/icons/materialicons/remove_red_eye/baseline_remove_red_eye_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_delete_24" />
+                            <entry key="outputName" value="ic_baseline_remove_red_eye_24" />
                             <entry key="sourceFile" value="C:\Users\bobo9\Desktop\no-classlists.svg" />
                           </map>
                         </option>
