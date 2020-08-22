@@ -34,10 +34,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <GridView
-        android:id="@+id/shoppingListRecycler"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:numColumns="2"
         android:layout_margin="@dimen/text_margin"
-        android:numColumns="2"></GridView>
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:id="@+id/shoppingListRecycler"
+        android:layout_width="match_parent">
+    </GridView>
 </LinearLayout>
 

@@ -75,6 +75,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
     // Add the SDKs for any other Firebase products you want to use in your app
     implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
+    implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.4'
 
     //for ML
     implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }

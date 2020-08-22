@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -11,25 +16,11 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/D:/jetbrains/apps/AndroidStudio/ch-0/193.6626763/plugins/android/lib/android.jar!/images/material/icons/materialicons/remove_red_eye/baseline_remove_red_eye_24.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_remove_red_eye_24" />
-                            <entry key="sourceFile" value="C:\Users\bobo9\Desktop\no-classlists.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_caret_arrow_down" />
+                            <entry key="sourceFile" value="C:\Users\linyi\Downloads\down.svg" />
                           </map>
                         </option>
                       </PersistentState>

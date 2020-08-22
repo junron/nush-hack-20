@@ -10,6 +10,9 @@
     <action
         android:id="@+id/scanShoppingList"
         app:destination="@id/scanFragment" />
+    <action android:id="@+id/showNutritionCompareList"
+        app:destination="@id/displayCompareNutrition">
+    </action>
     <fragment
         android:id="@+id/mainContent"
         android:name="com.example.shopeepee.fragments.MainContent"
@@ -35,9 +38,9 @@
         android:label="DisplayShoppingList">
         <argument
             android:name="Items"
-            android:defaultValue="@null"
+            app:nullable="true"
             app:argType="com.example.shopeepee.models.ShoppingList"
-            app:nullable="true" />
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
