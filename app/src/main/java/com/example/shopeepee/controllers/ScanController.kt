@@ -20,6 +20,7 @@ object ScanController : FragmentController {
     private lateinit var shoppingList: ShoppingList
     private lateinit var viewModel: ShoppingListsViewModel
     private var currentItem: PotentialShoppingItem? = null
+    private var pendingConfirm: Boolean = false
 
     override fun init(context: Fragment) {
         ScanController.context = context
@@ -78,8 +79,10 @@ object ScanController : FragmentController {
             val idxmax = counts.indexOf(max)
             val objName = possible[idxmax]
             if (currentItem != null) return
+            if (pendingConfirm) return
             Snackbar.make(context.itemsDrawer, "Is this $objName?", Snackbar.LENGTH_SHORT)
                 .setAction("Yes") {
+                    pendingConfirm = false
                     val item = shoppingList.items.find { it.name == objName } ?: return@setAction
                     currentItem = PotentialShoppingItem(
                         item.id,
@@ -92,7 +95,21 @@ object ScanController : FragmentController {
                     updateItem(newShoppingList)
                 }
                 .show()
+            pendingConfirm = true
+
         }
+    }
+
+    fun priceDetected(price: Double) {
+        if (currentItem == null) return
+        Snackbar.make(context.itemsDrawer, "Price detected: $price", Snackbar.LENGTH_LONG)
+            .show()
+        currentItem = currentItem!!.copy(price = price)
+        val newShoppingList = shoppingList.copy(
+            potentialItems = shoppingList.potentialItems.filter { it != currentItem } + currentItem!!
+        )
+        updateItem(newShoppingList)
+//        currentItem = null
     }
 
     private fun updateItem(shoppingList: ShoppingList) {

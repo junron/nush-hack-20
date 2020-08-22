@@ -13,7 +13,7 @@ object MainController : FragmentController {
     override fun init(context: Fragment) {
         MainController.context = context
         with(context) {
-            toolbar.title = "Shopeepee"
+            toolbar.title = "Smartcart"
             settings.setOnClickListener {
                 Navigation.navigate(R.id.settings)
             }

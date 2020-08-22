@@ -39,6 +39,8 @@ typealias ObjectListener = (luma: String) -> Unit
  * create an instance of this fragment.
  */
 class ScanFragment : Fragment() {
+    val texts = mutableListOf<String>();
+
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
@@ -110,7 +112,18 @@ class ScanFragment : Fragment() {
                 .also {
                     it.setAnalyzer(cameraExecutor, objd)
                 }
-
+            val i2 = ImageAnalysis.Builder()
+                .build()
+                .also {
+                    it.setAnalyzer(cameraExecutor, TextAnalyzer { extract ->
+                        val reg = Regex("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
+                        for (i in reg.findAll(extract)) {
+                            texts.add(i.value)
+                            Log.d("money", i.value)
+                            ScanController.priceDetected(i.value.substring(1).toDouble())
+                        }
+                    })
+                }
             // Preview
             val preview = Preview.Builder()
                 .build()
@@ -125,7 +138,7 @@ class ScanFragment : Fragment() {
                 cameraProvider.unbindAll()
 
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
+                    this, cameraSelector, preview, imageAnalyzer, i2
                 )
 
             } catch (exc: Exception) {
@@ -136,7 +149,6 @@ class ScanFragment : Fragment() {
     }
 
     private class ObjectDetector(private val listener: ObjectListener) : ImageAnalysis.Analyzer {
-        val texts = mutableListOf<String>();
         lateinit var context: Context;
         val STRINGMAP: Array<String> = arrayOf(
             "apple",
@@ -210,23 +222,6 @@ class ScanFragment : Fragment() {
         override fun analyze(image: ImageProxy) {
             var bitmap = image.image!!.toBitmap()
 
-            val mediaImage = image.image
-
-            val planes = mediaImage!!.planes
-//            if (planes.size > 3) {
-            for (plane in planes) {
-                plane.buffer.rewind()
-            }
-//            }
-            TextAnalyzer { extract ->
-                println("extract $extract")
-                val reg = Regex.fromLiteral("\\\$[0-9]{1,6}(\\.[0-9]{2})?")
-                for (i in reg.findAll(extract)) {
-                    texts.add(i.value)
-                    Log.d("money", i.value)
-                }
-            }.analyze(image)
-
             bitmap = bitmap.toSquare()!!
             val batchNum = 0
             val input = Array(1) { Array(224) { Array(224) { FloatArray(3) } } }
@@ -255,7 +250,7 @@ class ScanFragment : Fragment() {
                             idxmax = idx;
                         }
                     }
-                    if (max < 0.3) {
+                    if (max < 0.2) {
                         listener("NONE")
                     } else {
                         listener(STRINGMAP[idxmax])
